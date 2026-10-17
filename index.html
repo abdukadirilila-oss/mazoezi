@@ -2,196 +2,78 @@
 <html>
 <head>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
 body {
-  background: radial-gradient(circle, #0f1a3d, #000);
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-  font-family: Arial Black;
+  margin:0; background:#050d25; height:100vh;
+  display:flex; justify-content:center; align-items:center;
+  overflow:hidden; font-family:Arial Black;
 }
-
-/* MTU */
-.person {
-  position:relative;
-  width:200px;
-  height:300px;
-  z-index:2;
-  cursor:pointer;
+.person-img {
+  width:350px; cursor:pointer; z-index:2;
+  transition:0.3s;
+  filter: drop-shadow(0 0 20px rgba(255,204,0,0.5));
 }
-.head {
-  width:80px; height:80px; background:#ffdbac; border-radius:50%;
-  margin:0 auto; position:relative; box-shadow: 0 0 20px rgba(255,219,172,0.5);
+.person-img.clap {
+  animation: clapAnim 0.5s ease-out;
 }
-.body {
-  width:90px; height:110px; background:#1e3a8a; margin:5px auto;
-  border-radius:20px 20px 0 0;
+@keyframes clapAnim {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2) rotate(2deg); }
+  60% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1); }
 }
-.arms {
-  position:absolute;
-  top:90px;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-}
-.arm {
-  width:55px; height:20px; background:#ffdbac; border-radius:10px;
-  transform-origin:left center;
-  transition:0.2s;
-}
-.arm.right { transform-origin:right center; }
-.person.clap .arm.left { animation: clapLeft 0.4s ease-out; }
-.person.clap .arm.right { animation: clapRight 0.4s ease-out; }
-
-@keyframes clapLeft {
-  0% { transform: rotate(-40deg) translateX(-20px); }
-  50% { transform: rotate(0deg) translateX(25px); }
-  100% { transform: rotate(-40deg) translateX(-20px); }
-}
-@keyframes clapRight {
-  0% { transform: rotate(40deg) translateX(20px); }
-  50% { transform: rotate(0deg) translateX(-25px); }
-  100% { transform: rotate(40deg) translateX(20px); }
-}
-
-/* KOFI EFFECT - PAH! */
-.clap-effect {
-  position:absolute;
-  left:50%; top:35%;
+.clap-burst {
+  position:absolute; left:50%; top:45%;
+  font-size:80px; font-weight:900; color:#ffcc00;
   transform:translate(-50%,-50%) scale(0);
-  font-size:90px;
-  font-weight:900;
-  color:#ffcc00;
-  text-shadow: 0 0 20px #ffcc00, 0 0 40px white;
-  opacity:0;
-  pointer-events:none;
+  text-shadow:0 0 30px white; opacity:0; pointer-events:none;
 }
-.clap-effect.show {
-  animation: pah 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
+.clap-burst.show { animation: pah 0.7s forwards; }
 @keyframes pah {
   0% { transform:translate(-50%,-50%) scale(0); opacity:0; }
-  30% { transform:translate(-50%,-50%) scale(1.5); opacity:1; }
-  100% { transform:translate(-50%,-50%) scale(2.5); opacity:0; }
+  40% { transform:translate(-50%,-50%) scale(1.5); opacity:1; }
+  100% { transform:translate(-50%,-50%) scale(2.2); opacity:0; }
 }
-
-/* RING KWA KOFI */
-.ring {
-  position:absolute;
-  left:50%; top:35%;
-  width:20px; height:20px;
-  border:4px solid #ffcc00;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  opacity:0;
+.login {
+  position:absolute; background:white; padding:35px;
+  border-radius:20px; width:360px; box-shadow:0 20px 60px black;
+  transform:scale(0); opacity:0; z-index:10;
 }
-.ring.show {
-  animation: ringOut 0.7s ease-out forwards;
+.login.show { animation: pop 0.8s cubic-bezier(0.68,-0.55,0.265,1.55) forwards; }
+@keyframes pop {
+  to { transform:scale(1); opacity:1; }
 }
-@keyframes ringOut {
-  to { width:300px; height:300px; opacity:0; border-width:1px; }
-}
-
-/* LOGIN */
-.login-box {
-  position:absolute;
-  background: rgba(255,255,255,0.95);
-  padding:35px;
-  border-radius:20px;
-  width:350px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,204,0,0.4);
-  transform: scale(0) translateY(100px);
-  opacity:0;
-  z-index:10;
-}
-.login-box.show {
-  animation: loginPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-@keyframes loginPop {
-  0% { transform: scale(0) translateY(100px) rotate(-10deg); opacity:0; }
-  70% { transform: scale(1.1) translateY(-10px) rotate(2deg); opacity:1; }
-  100% { transform: scale(1) translateY(0) rotate(0deg); opacity:1; }
-}
-.login-box h2 { text-align:center; margin-bottom:20px; color:#0f1a3d; }
-.login-box input {
-  width:100%; padding:14px; margin:8px 0; border-radius:10px;
-  border:2px solid #ddd; outline:none; font-size:15px;
-}
-.login-box input:focus { border-color:#ffcc00; }
-.login-box button {
-  width:100%; padding:14px; margin-top:15px; background:#0f1a3d;
-  color:#ffcc00; border:none; border-radius:10px; font-weight:900; font-size:16px; cursor:pointer;
-}
-.hint {
-  position:fixed; bottom:30px; color:#ffcc00; text-align:center;
-  font-size:16px; letter-spacing:2px; animation: blink 1s infinite;
-}
-@keyframes blink { 50% { opacity:0.3 } }
+.login input{ width:100%; padding:14px; margin:8px 0; border-radius:10px; border:2px solid #ddd; }
+.login button{ width:100%; padding:14px; background:#050d25; color:#ffcc00; border:none; border-radius:10px; font-weight:900; margin-top:10px; }
+.hint{ position:fixed; bottom:25px; color:#ffcc00; animation:blink 1s infinite; }
+@keyframes blink{ 50%{ opacity:0.3 } }
 </style>
 </head>
 <body>
 
-<div class="person" id="person" onclick="doClap()">
-  <div class="head"></div>
-  <div class="arms">
-    <div class="arm left"></div>
-    <div class="arm right"></div>
-  </div>
-  <div class="body"></div>
-  <div style="display:flex;justify-content:center;gap:10px;margin-top:5px">
-    <div style="width:25px;height:80px;background:#000;border-radius:10px"></div>
-    <div style="width:25px;height:80px;background:#000;border-radius:10px"></div>
-  </div>
-</div>
+<img src="clap.png" id="person" class="person-img" onclick="clapNow()">
 
-<div class="clap-effect" id="pah">PAH! 👏</div>
-<div class="ring" id="ring"></div>
+<div class="clap-burst" id="burst">PAH! 👏</div>
 
-<div class="login-box" id="login">
-  <h2>🔓 KARIBU TENA</h2>
-  <input type="text" placeholder="Email / Jina">
+<div class="login" id="login">
+  <h2 style="text-align:center;margin-bottom:15px">🔓 LOGIN</h2>
+  <input placeholder="Email">
   <input type="password" placeholder="Password">
-  <button onclick="alert('Umeingia! 🔥')">INGIA</button>
-  <p style="text-align:center;margin-top:12px;font-size:12px;color:#888">Imeitwa kwa kofi moja 👏</p>
+  <button>INGIA</button>
 </div>
 
-<p class="hint" id="hint">👆 BONYEZA MTU APIGE KOFI</p>
+<p class="hint" id="hint">👆 BONYEZA KATUNI APIGE KOFI</p>
 
 <script>
-let clapped = false;
-function doClap(){
-  if(clapped) return;
-  clapped = true;
+function clapNow(){
+  document.getElementById('person').classList.add('clap');
+  document.getElementById('burst').classList.add('show');
+  document.getElementById('hint').style.display='none';
   
-  const person = document.getElementById('person');
-  const pah = document.getElementById('pah');
-  const ring = document.getElementById('ring');
-  const login = document.getElementById('login');
-  const hint = document.getElementById('hint');
-
-  // PIGA KOFI
-  person.classList.add('clap');
-  
-  // SAUTI YA KOFI
-  let audio = new Audio('https://www.soundjay.com/human/sounds/applause-01.mp3');
-  // Badala yake tutatumia clap fupi kwa vibration
-  if(navigator.vibrate) navigator.vibrate(100);
-
   setTimeout(()=>{
-    pah.classList.add('show');
-    ring.classList.add('show');
-    hint.style.display='none';
-  },200);
-
-  // LOGIN INATOKA
-  setTimeout(()=>{
-    person.style.transition='0.5s';
-    person.style.transform='scale(0.7) translateY(-150px)';
-    person.style.opacity='0.3';
-    login.classList.add('show');
-  },600);
+    document.getElementById('login').classList.add('show');
+    document.getElementById('person').style.transform='scale(0.6) translateY(-200px)';
+    document.getElementById('person').style.opacity='0.4';
+  },500);
 }
 </script>
 </body>
