@@ -1,79 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
   margin:0; background:#050d25; height:100vh;
   display:flex; justify-content:center; align-items:center;
   overflow:hidden; font-family:Arial Black;
+  background: radial-gradient(circle at center, #162447, #000);
 }
 .person-img {
-  width:350px; cursor:pointer; z-index:2;
-  transition:0.3s;
-  filter: drop-shadow(0 0 20px rgba(255,204,0,0.5));
+  width:380px; 
+  max-width:90vw;
+  cursor:pointer; 
+  z-index:2;
+  transition:0.5s;
+  filter: drop-shadow(0 0 30px rgba(255,204,0,0.6));
 }
 .person-img.clap {
   animation: clapAnim 0.5s ease-out;
 }
 @keyframes clapAnim {
   0% { transform: scale(1); }
-  30% { transform: scale(1.2) rotate(2deg); }
-  60% { transform: scale(0.95) rotate(-2deg); }
+  25% { transform: scale(1.25) rotate(3deg); }
+  50% { transform: scale(0.9) rotate(-3deg); }
   100% { transform: scale(1); }
 }
+
+/* PAH EFFECT */
 .clap-burst {
   position:absolute; left:50%; top:45%;
-  font-size:80px; font-weight:900; color:#ffcc00;
+  font-size:90px; font-weight:900; color:#ffcc00;
   transform:translate(-50%,-50%) scale(0);
-  text-shadow:0 0 30px white; opacity:0; pointer-events:none;
+  text-shadow:0 0 20px white, 0 0 50px #ffcc00;
+  opacity:0; pointer-events:none; z-index:5;
 }
-.clap-burst.show { animation: pah 0.7s forwards; }
+.clap-burst.show { animation: pah 0.8s forwards; }
 @keyframes pah {
   0% { transform:translate(-50%,-50%) scale(0); opacity:0; }
-  40% { transform:translate(-50%,-50%) scale(1.5); opacity:1; }
-  100% { transform:translate(-50%,-50%) scale(2.2); opacity:0; }
+  30% { transform:translate(-50%,-50%) scale(1.4); opacity:1; }
+  100% { transform:translate(-50%,-50%) scale(2.5); opacity:0; }
 }
+
+/* RING */
+.ring {
+  position:absolute; left:50%; top:45%;
+  width:20px; height:20px; border:4px solid #ffcc00;
+  border-radius:50%; transform:translate(-50%,-50%); opacity:0;
+}
+.ring.show { animation: ringOut 0.8s ease-out forwards; }
+@keyframes ringOut {
+  to { width:500px; height:500px; opacity:0; border-width:1px; }
+}
+
+/* LOGIN */
 .login {
   position:absolute; background:white; padding:35px;
-  border-radius:20px; width:360px; box-shadow:0 20px 60px black;
-  transform:scale(0); opacity:0; z-index:10;
+  border-radius:22px; width:360px; max-width:90vw;
+  box-shadow:0 25px 80px rgba(0,0,0,0.8);
+  transform:scale(0) translateY(100px); opacity:0; z-index:10;
 }
-.login.show { animation: pop 0.8s cubic-bezier(0.68,-0.55,0.265,1.55) forwards; }
+.login.show { animation: pop 0.9s cubic-bezier(0.68,-0.55,0.265,1.55) forwards; }
 @keyframes pop {
-  to { transform:scale(1); opacity:1; }
+  0% { transform:scale(0) translateY(100px) rotate(-10deg); opacity:0; }
+  70% { transform:scale(1.1) translateY(-10px) rotate(2deg); opacity:1; }
+  100% { transform:scale(1) translateY(0) rotate(0deg); opacity:1; }
 }
-.login input{ width:100%; padding:14px; margin:8px 0; border-radius:10px; border:2px solid #ddd; }
-.login button{ width:100%; padding:14px; background:#050d25; color:#ffcc00; border:none; border-radius:10px; font-weight:900; margin-top:10px; }
-.hint{ position:fixed; bottom:25px; color:#ffcc00; animation:blink 1s infinite; }
+.login h2 { text-align:center; margin-bottom:20px; color:#050d25; }
+.login input{ width:100%; padding:15px; margin:8px 0; border-radius:12px; border:2px solid #ddd; outline:none; font-size:15px; }
+.login input:focus{ border-color:#ffcc00; }
+.login button{ width:100%; padding:15px; background:#050d25; color:#ffcc00; border:none; border-radius:12px; font-weight:900; font-size:17px; margin-top:15px; cursor:pointer; box-shadow:0 0 20px rgba(255,204,0,0.4); }
+.hint{ position:fixed; bottom:25px; color:#ffcc00; letter-spacing:1px; animation:blink 1s infinite; font-size:14px; }
 @keyframes blink{ 50%{ opacity:0.3 } }
 </style>
 </head>
 <body>
 
+<!-- HAPA NDIO PICHA YAKE - HAKIKISHA IMEITWA clap.png -->
 <img src="clap.png" id="person" class="person-img" onclick="clapNow()">
 
 <div class="clap-burst" id="burst">PAH! 👏</div>
+<div class="ring" id="ring"></div>
 
 <div class="login" id="login">
-  <h2 style="text-align:center;margin-bottom:15px">🔓 LOGIN</h2>
-  <input placeholder="Email">
+  <h2>🔓 KARIBU</h2>
+  <input type="text" placeholder="Email / Jina">
   <input type="password" placeholder="Password">
-  <button>INGIA</button>
+  <button onclick="alert('Umeingia! ⚡')">INGIA</button>
+  <p style="text-align:center;margin-top:12px;font-size:11px;color:#999">Imeitwa kwa kofi moja 👏</p>
 </div>
 
 <p class="hint" id="hint">👆 BONYEZA KATUNI APIGE KOFI</p>
 
 <script>
+let done = false;
 function clapNow(){
+  if(done) return;
+  done = true;
   document.getElementById('person').classList.add('clap');
   document.getElementById('burst').classList.add('show');
+  document.getElementById('ring').classList.add('show');
   document.getElementById('hint').style.display='none';
   
+  // Vibrate kwa simu
+  if(navigator.vibrate) navigator.vibrate([100,50,100]);
+
   setTimeout(()=>{
     document.getElementById('login').classList.add('show');
-    document.getElementById('person').style.transform='scale(0.6) translateY(-200px)';
+    document.getElementById('person').style.transform='scale(0.6) translateY(-180px)';
     document.getElementById('person').style.opacity='0.4';
-  },500);
+  },550);
 }
 </script>
 </body>
