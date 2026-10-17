@@ -5,163 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ABDULI BASWIT - Fundi Grill Bagamoyo</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { 
-  background:#0a0a0a; font-family: 'Arial Black', sans-serif;
-  height:100vh; overflow:hidden; display:flex;
-  justify-content:center; align-items:center;
-}
-#bg {
-  position:fixed; inset:0; background: radial-gradient(circle at center, #1a1a1a, #000);
-}
-.welder-wrap {
-  position:relative; z-index:2; text-align:center;
-  transition:0.8s ease;
-}
-.welder-img {
-  width:480px; max-width:92vw; border-radius:20px;
-  box-shadow: 0 0 50px rgba(255,140,0,0.6);
-  cursor:pointer;
-  animation: float 3s ease-in-out infinite;
-}
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-.sparks {
-  position:absolute; inset:0; pointer-events:none;
-}
-.spark {
-  position:absolute; width:4px; height:4px; background:#ffcc00;
-  border-radius:50%; opacity:0;
-}
-.spark.active { animation: sparkFly 0.8s ease-out forwards; }
-@keyframes sparkFly {
-  0% { transform:translate(0,0) scale(1); opacity:1; }
-  100% { transform:translate(var(--x), var(--y)) scale(0); opacity:0; }
-}
-
-/* BUSINESS CARD - INATOKA BAADA YA WELDING */
-.card {
-  position:absolute; left:50%; top:50%;
-  transform:translate(-50%,-50%) scale(0) rotate(-15deg);
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  border:2px solid #ff8c00;
-  width:380px; max-width:92vw;
-  padding:30px; border-radius:20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,140,0,0.5);
-  opacity:0; z-index:10; color:white;
-}
-.card.show {
-  animation: cardPop 0.9s cubic-bezier(0.68,-0.55,0.265,1.55) forwards;
-}
-@keyframes cardPop {
-  0% { transform:translate(-50%,-50%) scale(0) rotate(-15deg); opacity:0; }
-  70% { transform:translate(-50%,-50%) scale(1.1) rotate(3deg); opacity:1; }
-  100% { transform:translate(-50%,-50%) scale(1) rotate(0deg); opacity:1; }
-}
-.card h1 { color:#ff8c00; font-size:26px; margin-bottom:5px; text-align:center; }
-.card .title { text-align:center; color:#ffcc00; font-size:14px; letter-spacing:2px; margin-bottom:20px; }
-.card .info { background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; margin:10px 0; }
-.card .info p { font-size:15px; margin:6px 0; font-family:Arial; }
-.card .info b { color:#ff8c00; }
-.card .btns { display:flex; gap:10px; margin-top:20px; }
-.card .btns a {
-  flex:1; text-align:center; padding:14px; border-radius:12px;
-  text-decoration:none; font-weight:900; font-size:14px;
-}
-.btn-call { background:#ff8c00; color:black; }
-.btn-wa { background:#25D366; color:white; }
-
-.weld-text {
-  position:absolute; top:20%; left:50%; transform:translateX(-50%);
-  font-size:70px; color:#ff8c00; font-weight:900;
-  text-shadow:0 0 20px #ff8c00, 0 0 40px white;
-  opacity:0; pointer-events:none; z-index:5;
-}
-.weld-text.show { animation: weldFlash 0.6s forwards; }
-@keyframes weldFlash {
-  0%{ opacity:0; transform:translateX(-50%) scale(0); }
-  50%{ opacity:1; transform:translateX(-50%) scale(1.3); }
-  100%{ opacity:0; transform:translateX(-50%) scale(1.5); }
-}
-
-.hint { position:fixed; bottom:25px; left:50%; transform:translateX(-50%); color:#ff8c00; animation:blink 1s infinite; z-index:3; }
-@keyframes blink { 50%{opacity:0.3} }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;height:100vh;overflow:hidden;display:flex;justify-content:center;align-items:center;font-family:Arial Black;color:white}
+#bg{position:fixed;inset:0;background:radial-gradient(circle at 50% 30%,#1e1e1e,#000)}
+.welder-wrap{position:relative;z-index:2;text-align:center;transition:0.8s}
+.emoji-welder{font-size:160px;filter:drop-shadow(0 0 30px #ff8c00);cursor:pointer;animation:float 2.5s ease-in-out infinite;display:block}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.weld-text{position:fixed;top:22%;left:50%;transform:translateX(-50%);font-size:70px;color:#ff8c00;font-weight:900;text-shadow:0 0 20px #ff8c00,0 0 50px white;opacity:0;pointer-events:none;z-index:5}
+.weld-text.show{animation:weldFlash .7s forwards}
+@keyframes weldFlash{0%{opacity:0;transform:translateX(-50%) scale(0)}50%{opacity:1;transform:translateX(-50%) scale(1.4)}100%{opacity:0;transform:translateX(-50%) scale(2)}}
+.spark{position:fixed;left:50%;top:58%;width:5px;height:5px;background:#ffcc00;border-radius:50%;pointer-events:none;z-index:4}
+.card{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(0) rotate(-12deg);background:linear-gradient(145deg,#1a1a1a,#0f0f0f);border:2px solid #ff8c00;width:390px;max-width:92vw;padding:28px;border-radius:22px;box-shadow:0 25px 80px rgba(0,0,0,.9),0 0 45px rgba(255,140,0,.4);opacity:0;z-index:10}
+.card.show{animation:cardPop .9s cubic-bezier(0.68,-0.55,0.265,1.55) forwards}
+@keyframes cardPop{0%{transform:translate(-50%,-50%) scale(0) rotate(-12deg);opacity:0}70%{transform:translate(-50%,-50%) scale(1.08) rotate(2deg);opacity:1}100%{transform:translate(-50%,-50%) scale(1) rotate(0);opacity:1}}
+.card h1{color:#ff8c00;font-size:27px;text-align:center;letter-spacing:1px}
+.card .sub{color:#ffcc00;text-align:center;font-size:13px;letter-spacing:3px;margin:6px 0 20px}
+.info{background:rgba(255,255,255,.06);border:1px solid rgba(255,140,0,.2);padding:16px;border-radius:14px}
+.info p{font-family:Arial;font-size:14.5px;margin:9px 0}
+.info b{color:#ff8c00}
+.btns{display:flex;gap:10px;margin-top:20px}
+.btns a{flex:1;text-align:center;padding:14px;border-radius:12px;text-decoration:none;font-weight:900;font-size:14px;transition:.2s}
+.btns a:active{transform:scale(.95)}
+.btn-call{background:#ff8c00;color:#000}
+.btn-wa{background:#25D366;color:#fff}
+.badge{position:absolute;top:-12px;right:18px;background:#ff8c00;color:#000;font-size:11px;padding:5px 12px;border-radius:20px;font-weight:900}
+.hint{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);color:#ff8c00;font-size:13px;letter-spacing:1px;animation:blink 1s infinite;z-index:3}
+@keyframes blink{50%{opacity:.3}}
 </style>
 </head>
 <body>
 <div id="bg"></div>
-
 <div class="weld-text" id="weldText">WELDING! ⚡</div>
 
 <div class="welder-wrap" id="welderWrap" onclick="startWelding()">
-  <img src="https://i.ibb.co/placeholder" id="welderImg" class="welder-img" 
-  style="display:none" onload="this.style.display='block'">
-  <!-- Tutatumia div badala ya img kwa sasa ili 404 isitokee -->
-  <div style="font-size:180px; filter: drop-shadow(0 0 30px #ff8c00);">👨🏾‍🏭</div>
-  <p style="color:#ff8c00; margin-top:15px; letter-spacing:2px;">👆 BONYEZA KUANZA KUCHOMELEA</p>
+  <span class="emoji-welder">👨🏾‍🏭</span>
+  <p style="color:#ff8c00;margin-top:10px;font-size:14px;letter-spacing:2px">👆 BONYEZA KUANZA KUCHOMELEA</p>
+  <p style="color:#666;font-family:Arial;font-size:12px;margin-top:6px">Bagamoyo Mjini • Fundi Grill</p>
 </div>
 
 <div class="card" id="card">
+  <div class="badge">🔥 OPEN NOW</div>
   <h1>ABDULI BASWIT</h1>
-  <div class="title">FUNDI GRILL • UCHOMELEAJI VYUMA</div>
-  
+  <div class="sub">FUNDI GRILL • UCHOMELEAJI VYUMA</div>
   <div class="info">
-    <p><b>📍 Location:</b> Bagamoyo Mjini</p>
-    <p><b>🔧 Huduma:</b> Milango, Madirisha, Grill, Viti, Meza za Chuma</p>
-    <p><b>📞 Simu:</b> +255 658 618 740</p>
-    <p><b>⚡ Ubora:</b> Kazi safi na imara - Bei nafuu!</p>
+    <p><b>📍 Mahali:</b> Bagamoyo Mjini</p>
+    <p><b>🔧 Huduma Zetu:</b><br>• Milango & Madirisha ya Grill<br>• Viti, Meza, Vitanda vya Chuma<br>• Mageti & Uzio • Matengenezo</p>
+    <p><b>📞 Namba:</b> +255 658 618 740</p>
+    <p><b>⭐ Sifa:</b> Kazi Safi, Imara, Bei Nafuu!</p>
   </div>
-
   <div class="btns">
     <a class="btn-call" href="tel:+255658618740">📞 PIGA SIMU</a>
-    <a class="btn-wa" href="https://wa.me/255658618740">💬 WHATSAPP</a>
+    <a class="btn-wa" href="https://wa.me/255658618740?text=Habari%20Fundi%20Abduli%2C%20nahitaji%20huduma%20ya%20Grill">💬 WHATSAPP</a>
   </div>
-  
-  <p style="text-align:center; margin-top:15px; font-size:11px; color:#888; font-family:Arial;">Tengenezwa kwa Welding Animation ⚡</p>
+  <p style="text-align:center;margin-top:14px;font-size:10px;color:#555;font-family:Arial">© 2026 Abduli Baswit Grill Works - Bagamoyo</p>
 </div>
 
-<p class="hint" id="hint">Fundi Grill Bora Bagamoyo 🔥</p>
+<div class="hint" id="hint">Fundi Grill Bora Bagamoyo 🔥⚒️</div>
 
 <script>
-let welded = false;
+let done=false;
 function startWelding(){
-  if(welded) return; welded=true;
-  const weldText = document.getElementById('weldText');
-  const card = document.getElementById('card');
-  const wrap = document.getElementById('welderWrap');
-  const hint = document.getElementById('hint');
-
-  // Flash ya welding
-  weldText.classList.add('show');
-  
-  // Cheche 30 zinatoka
-  for(let i=0;i<35;i++){
-    setTimeout(()=>{
-      let s = document.createElement('div');
-      s.className='spark active';
-      s.style.left='50%'; s.style.top='60%';
-      s.style.setProperty('--x', (Math.random()*600-300)+'px');
-      s.style.setProperty('--y', (Math.random()*400-200)+'px');
-      s.style.background = Math.random()>0.5 ? '#ff8c00' : '#ffcc00';
-      document.body.appendChild(s);
-      setTimeout(()=>s.remove(),800);
-    }, i*40);
-  }
-
-  if(navigator.vibrate) navigator.vibrate([100,50,200]);
-
+ if(done) return; done=true;
+ const t=document.getElementById('weldText');
+ const card=document.getElementById('card');
+ const wrap=document.getElementById('welderWrap');
+ const hint=document.getElementById('hint');
+ t.classList.add('show');
+ // sparks 40
+ for(let i=0;i<40;i++){
   setTimeout(()=>{
-    weldText.classList.remove('show');
-    weldText.innerHTML='DONE! ✅';
-    weldText.classList.add('show');
-  },400);
-
-  setTimeout(()=>{
-    wrap.style.transform='scale(0.5) translateY(-300px)';
-    wrap.style.opacity='0.2';
-    hint.style.display='none';
-    card.classList.add('show');
-  },900);
+   let s=document.createElement('div');
+   s.className='spark';
+   s.style.left='50%'; s.style.top='58%';
+   s.style.background=Math.random()>0.5?'#ff8c00':'#ffcc00';
+   let x=(Math.random()*700-350), y=(Math.random()*500-250);
+   s.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${x}px,${y}px) scale(0)`,opacity:0}],{duration:700+Math.random()*400,easing:'ease-out'});
+   document.body.appendChild(s);
+   setTimeout(()=>s.remove(),800);
+  }, i*35);
+ }
+ if(navigator.vibrate) navigator.vibrate([80,30,150,30,80]);
+ setTimeout(()=>{ t.classList.remove('show'); t.innerHTML='DONE! ✅'; t.classList.add('show'); },500);
+ setTimeout(()=>{
+  wrap.style.transform='scale(0.45) translateY(-350px)'; wrap.style.opacity='0.15'; hint.style.display='none'; card.classList.add('show');
+ },1000);
 }
 </script>
 </body>
